@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
+import Link from "next/link";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -22,13 +23,13 @@ export default function SignInPage() {
     if (res.error) {
       setError(res.error.message || "Something went wrong.");
     } else {
-      router.push("/dashboard");
+      router.push("/profile");
     }
   }
 
   return (
     <main className="max-w-md h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white">
-      <h1 className="text-2xl font-bold">Sign In</h1>
+      <h1 className="text-2xl font-bold">Нэвтрэх хэсэг</h1>
 
       {error && <p className="text-red-500">{error}</p>}
 
@@ -51,9 +52,12 @@ export default function SignInPage() {
           type="submit"
           className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
         >
-          Sign In
+          Нэвтрэх
         </button>
       </form>
+      <Link href={"/sign-up"} className="text-right mr-auto">
+        Бүртгэл үүсгэх?
+      </Link>
     </main>
   );
 }

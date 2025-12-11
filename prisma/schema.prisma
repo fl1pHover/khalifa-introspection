@@ -12,6 +12,8 @@ model Category {
   id      Int       @id @default(autoincrement())
   title   String    @unique
   Product Product[]
+
+  // @@map("category")
 }
 
 model Product {
@@ -24,6 +26,8 @@ model Product {
   url         String
   categoryId  Int?
   Category    Category? @relation(fields: [categoryId], references: [id])
+
+  // @@map("product")
 }
 
 model User {
