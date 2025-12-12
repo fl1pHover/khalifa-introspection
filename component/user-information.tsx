@@ -19,8 +19,8 @@ export default async function UserInformation() {
 
   console.log(user);
   return (
-    <main className="max-w-md h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white">
+    <div>
       <EditUserForm user={user} />
-    </main>
+    </div>
   );
 }
