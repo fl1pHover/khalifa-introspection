@@ -1,3 +1,5 @@
+import UserInformation from "@/component/user-information";
+
 export default function Home() {
   return (
     <main className="flex items-center justify-center h-screen bg-neutral-950 text-white">

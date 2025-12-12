@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import { useEffect } from "react";
+import Link from "next/link";
 
 export default function Page() {
   const router = useRouter();
@@ -25,17 +26,8 @@ export default function Page() {
     <main className="max-w-md h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white">
       <h1 className="text-2xl font-bold">{user.name || "User"}</h1>
       <p>{user.email}</p>
-
-      {/* {isPending ? (
-        <p className="text-center">Loading...</p>
-      ) : !session?.user ? (
-        <p className="text-center">Redirecting...</p>
-      ) : (
-        <>
-          <h1 className="text-2xl font-bold">{user.name}</h1>
-          <p className="text-zinc-300">{user.email}</p>
-        </>
-      )} */}
+      <Link href={`profile/edit/${user.id}`}>edit</Link>
+      
     </main>
   );
 }

@@ -8,7 +8,7 @@ export default function HomeLayout({
   return (
     <div>
       <Navbar />
-      <div>{children}</div>
+      <div className="base-container">{children}</div>
     </div>
   );
 }
