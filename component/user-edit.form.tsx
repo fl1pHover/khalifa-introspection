@@ -1,11 +1,8 @@
 import { prisma } from "@/lib/prisma";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
 export default function EditUserForm({ user }: { user }) {
   async function updateUser(formData: FormData) {
     "use server";
-
     const name = formData.get("name") as string;
     const email = formData.get("email") as string;
     const phone = formData.get("phone") as string;
@@ -20,12 +17,7 @@ export default function EditUserForm({ user }: { user }) {
         address,
       },
     });
-
-    revalidatePath("/profile");
-    redirect("/profile");
   }
-  console.log(user);
-
   return (
     <form action={updateUser} className="max-w-xl mx-auto p-4 space-y-4">
       <h1 className="text-2xl font-bold">Edit User</h1>
@@ -37,7 +29,7 @@ export default function EditUserForm({ user }: { user }) {
         <input
           type="text"
           name="name"
-          defaultValue={user.name ?? ""}
+          defaultValue={user.name}
           className="w-full border px-3 py-2 rounded"
         />
       </div>
@@ -61,7 +53,7 @@ export default function EditUserForm({ user }: { user }) {
         <input
           type="text"
           name="phone"
-          defaultValue={user.phone ?? ""}
+          defaultValue={user.phone}
           className="w-full border px-3 py-2 rounded"
         />
       </div>
@@ -72,7 +64,7 @@ export default function EditUserForm({ user }: { user }) {
         <input
           type="text"
           name="address"
-          defaultValue={user.address ?? ""}
+          defaultValue={user.address}
           className="w-full border px-3 py-2 rounded"
         />
       </div>

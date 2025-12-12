@@ -32,7 +32,6 @@ function Sign() {
   return (
     <div className="flex items-center gap-2">
       <Link href={"/profile"}>Profile</Link>
-      {/* <ProfileButton /> */}
       {/* <Link href={`profile/edit/${session.user.id}`}>profile</Link> */}
 
       <button

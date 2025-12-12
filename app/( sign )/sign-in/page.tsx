@@ -10,11 +10,11 @@ export default function SignInPage() {
   const [error, setError] = useState<string | null>(null);
   const { data: session } = useSession();
 
-  // useEffect(() => {
-  //   if (!session?.user) {
-  //     router.push("/profile");
-  //   }
-  // }, [session, router]);
+  useEffect(() => {
+    if (!session?.user) {
+      router.push("/profile");
+    }
+  }, [session, router]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
