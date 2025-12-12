@@ -29,7 +29,7 @@ export default function SignUpPage() {
   }
 
   return (
-    <main className="max-w-md mx-auto p-6 space-y-4 text-white">
+    <main className="max-w-md mx-auto p-6 space-y-4">
       <h1 className="text-2xl font-bold">Бүртгүүлэх хэсэг</h1>
 
       {error && <p className="text-red-500">{error}</p>}

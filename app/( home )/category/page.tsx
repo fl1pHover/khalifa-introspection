@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import React, { Suspense } from "react";
+import { Suspense } from "react";
 
 export default async function Page() {
   const category = null;
@@ -20,16 +20,16 @@ export default async function Page() {
   console.log(products);
 
   return (
-    <div>
+    <Suspense fallback={<div>Loading</div>}>
       <h1>Categories</h1>
 
-      <Suspense fallback={<div>Loading</div>}>
+      <div>
         {categories.map((c) => (
           <div key={c.id} className="flex gap-10">
             <span>id:{c.id}</span> <span>title: {c.title}</span>
           </div>
         ))}
-      </Suspense>
+      </div>
       <br />
       {sortedProducts.map((c) => (
         <div key={c.id} className="flex gap-10">
@@ -37,6 +37,6 @@ export default async function Page() {
           <span>Category: {c.categoryId}</span>
         </div>
       ))}
-    </div>
+    </Suspense>
   );
 }

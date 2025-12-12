@@ -1,4 +1,6 @@
 "use client";
+
+import { Button } from "@/components/ui/button";
 import { signOut, useSession } from "@/lib/auth-client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,26 +22,22 @@ function Sign() {
   const router = useRouter();
 
   if (!session?.user)
-    return (
-      <button
-        onClick={() => router.push("/sign-in")}
-        className="bg-white text-black font-medium px-6 py-2 rounded-md hover:bg-gray-200"
-      >
-        Нэвтрэх
-      </button>
-    );
+    return <Button onClick={() => router.push("/sign-in")}>Нэвтрэх</Button>;
 
   return (
     <div className="flex items-center gap-2">
-      <Link href={"/profile"}>Profile</Link>
-      {/* <Link href={`profile/edit/${session.user.id}`}>profile</Link> */}
-
-      <button
-        onClick={() => signOut()}
-        className="bg-white text-red-500 font-medium px-6 py-2 rounded-md hover:bg-gray-200"
+      <Button variant={"outline"} asChild>
+        <Link href={"/profile"}>Profile</Link>
+      </Button>
+      <Button
+        variant={"destructive"}
+        onClick={() => {
+          signOut();
+          router.push("/");
+        }}
       >
         Гарах
-      </button>
+      </Button>
     </div>
   );
 }

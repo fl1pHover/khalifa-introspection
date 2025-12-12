@@ -5,7 +5,7 @@ export default function HomeLayout({
 }>) {
   return (
     <div className="base-container">
-      <div className="flex items-center justify-center h-screen bg-neutral-950 text-white">
+      <div className="flex items-center justify-center h-screen">
         {children}
       </div>
     </div>

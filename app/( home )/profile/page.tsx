@@ -1,6 +1,7 @@
 import UserInformation from "@/component/user-information";
 
 export default function Page() {
+  // ATTENTION
   // const router = useRouter();
 
   // useEffect(() => {

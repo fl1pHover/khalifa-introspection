@@ -3,6 +3,7 @@ import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 export default async function UserInformation() {
   const headersList = await headers();
@@ -19,8 +20,8 @@ export default async function UserInformation() {
 
   console.log(user);
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <EditUserForm user={user} />
-    </div>
+    </Suspense>
   );
 }

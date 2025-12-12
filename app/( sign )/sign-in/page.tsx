@@ -4,22 +4,25 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn, useSession } from "@/lib/auth-client";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 export default function SignInPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
-  const { data: session } = useSession();
+  const [pending, setPending] = useState(false);
+  const { data: session, isPending } = useSession();
+  console.log(isPending);
 
   useEffect(() => {
     if (!session?.user) {
-      router.push("/profile");
+      router.push("/sign-in");
     }
   }, [session, router]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
-
+    setPending(true);
     const formData = new FormData(e.currentTarget);
 
     const res = await signIn.email({
@@ -35,7 +38,7 @@ export default function SignInPage() {
   }
 
   return (
-    <main className="max-w-md h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-4 text-white">
+    <main className="max-w-md h-screen flex items-center justify-center flex-col mx-auto p-6 space-y-4">
       <h1 className="text-2xl font-bold">Нэвтрэх хэсэг</h1>
 
       {error && <p className="text-red-500">{error}</p>}
@@ -46,21 +49,18 @@ export default function SignInPage() {
           type="email"
           placeholder="Email"
           required
-          className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
+          className="w-full rounded-md border border-neutral-700 px-3 py-2"
         />
         <input
           name="password"
           type="password"
           placeholder="Password"
           required
-          className="w-full rounded-md bg-neutral-900 border border-neutral-700 px-3 py-2"
+          className="w-full rounded-md border border-neutral-700 px-3 py-2"
         />
-        <button
-          type="submit"
-          className="w-full bg-white text-black font-medium rounded-md px-4 py-2 hover:bg-gray-200"
-        >
+        <Button type="submit" disabled={pending}>
           Нэвтрэх
-        </button>
+        </Button>
       </form>
       <Link href={"/sign-up"} className="text-right mr-auto">
         Бүртгэл үүсгэх?
