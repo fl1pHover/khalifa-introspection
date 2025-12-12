@@ -17,13 +17,13 @@ model Category {
 
 model Product {
   id          Int       @id @default(autoincrement())
-  title       String
+  title       String    
   description String?
   quantity    Int
   price       Float?
-  images      Json?
-  url         String
-  categoryId  Int?
+  // images      Json?     
+  url         String?   
+  categoryId  Int?      @default(1)
   Category    Category? @relation(fields: [categoryId], references: [id])
 
   @@map("product")
