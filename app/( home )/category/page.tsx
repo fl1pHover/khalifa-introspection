@@ -1,21 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import { Suspense } from "react";
 
 export default async function Page() {
-  const category = null;
-
-  const categories = await prisma.category.findMany({
-    select: {
-      id: true,
-      Product: true,
-      title: true,
-    },
-    where: category ? { id: category } : {},
-  });
-
-  const products = categories.flatMap((category) => category.Product);
-
-  console.log(products);
+  const categories = await prisma.category.findMany({});
 
   return (
     <Suspense fallback={<div>Loading</div>}>
@@ -29,12 +18,12 @@ export default async function Page() {
         ))}
       </div>
       <br />
-      {products.map((c) => (
-        <div key={c.id} className="flex gap-10">
-          <span>id:{c.id}</span> <span>title: {c.title}</span>
-          <span>Category: {c.categoryId}</span>
-        </div>
-      ))}
+
+      <div className="flex gap-2">
+        <Button asChild>
+          <Link href={"/category/new"}>category add</Link>
+        </Button>
+      </div>
     </Suspense>
   );
 }

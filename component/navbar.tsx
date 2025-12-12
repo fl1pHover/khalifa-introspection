@@ -11,6 +11,7 @@ export default function Navbar() {
       <div className="flex  items-center gap-10">
         <Link href={"/"}>Home</Link>
         <Link href={"/category"}>Category</Link>
+        <Link href={"/product"}>Product</Link>
       </div>
       <Sign />
     </div>
