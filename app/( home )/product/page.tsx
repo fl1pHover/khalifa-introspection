@@ -1,3 +1,4 @@
+import FilterCategory from "@/component/filter-category";
 import ProductGrid from "@/components/product-grid";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
@@ -9,41 +10,32 @@ export default async function Page({
 }: {
   searchParams: Promise<{ category?: string }>;
 }) {
-  const categoryId = (await searchParams).category ?? null;
+  const categoryId = Number((await searchParams).category) ?? null;
+
   const categories = await prisma.category.findMany({
     select: {
       id: true,
       title: true,
-      Product: true,
     },
-    // where: categoryId ? { id: Number(categoryId) } : {},
   });
-  const products = categoryId
-    ? categories.find((c) => c.id === Number(categoryId))?.Product ?? []
-    : categories.flatMap((c) => c.Product);
+
+  const products = await prisma.product.findMany({
+    select: {
+      id: true,
+      title: true,
+      categoryId: true,
+    },
+    where: categoryId ? { categoryId: categoryId } : {},
+  });
 
   console.log(products);
   return (
     <Suspense fallback={<div>Loading</div>}>
       <h1 className="font-bold">Categories</h1>
 
-      <div className="flex gap-2 flex-wrap">
-        <Link href={`/product`} className="flex gap-10 bg-slate-200 p-2">
-          <span>All spirit</span>
-        </Link>
-        {categories.map((c) => (
-          <Link
-            key={c.id}
-            href={`/product?category=${c.id}`}
-            className="flex gap-2 bg-slate-200 p-2"
-          >
-            <span className="text-red-500">{c.id}</span>
-            <span>{c.title}</span>
-          </Link>
-        ))}
-      </div>
+      <FilterCategory categories={categories} />
 
-      <br />
+      <div className="w-full h-[1px] bg-gray-300 my-10"></div>
 
       <h1>Products</h1>
 
@@ -55,13 +47,9 @@ export default async function Page({
           ></div>
         ))}
       >
-        {/*PRoduct Grid*/}
         <ProductGrid products={products} />
       </Suspense>
 
-      {/* <Suspense fallback={<div>Loading products...</div>}>
-        <ProductGrid products={products} />
-      </Suspense> */}
       <Button asChild>
         <Link href={"/product/new"}>Product add</Link>
       </Button>

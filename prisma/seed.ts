@@ -2,7 +2,6 @@ import { Prisma, PrismaClient } from "@/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 
-
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
 });
@@ -64,7 +63,8 @@ const categoryData: Prisma.CategoryCreateInput[] = [
 export async function main() {
   for (const c of categoryData) {
     await prisma.category.createMany({
-      data: categoryData,
+      data: c,
+      // data: categoryData,
       skipDuplicates: true,
     });
   }
