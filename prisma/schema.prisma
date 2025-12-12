@@ -18,10 +18,10 @@ model Category {
 model Product {
   id          Int       @id @default(autoincrement())
   title       String
-  description String
+  description String?
   quantity    Int
   price       Float?
-  images      Json
+  images      Json?
   url         String
   categoryId  Int?
   Category    Category? @relation(fields: [categoryId], references: [id])
@@ -38,6 +38,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   phone         String?
   address       String?
+  taxNumber     String?
   accounts      Account[]
   sessions      Session[]
 

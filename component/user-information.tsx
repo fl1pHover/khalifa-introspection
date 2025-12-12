@@ -16,11 +16,25 @@ export default async function UserInformation() {
 
   const user = await prisma.user.findUnique({
     where: { id: session.user.id },
+    include: {
+      accounts: true,
+    },
   });
 
-  console.log(user);
+  const account = await prisma.account.findMany({
+    where: { userId: session.user.id },
+  });
+
+  const products = await prisma.product.findMany({});
+
+  // console.log(account[0].password);
+
+  console.log(products);
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
+      {/* Todo */}
+      <div className="underline">{account[0].password}</div>
       <EditUserForm user={user} />
     </Suspense>
   );

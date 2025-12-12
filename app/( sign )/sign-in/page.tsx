@@ -10,8 +10,7 @@ export default function SignInPage() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
-  const { data: session, isPending } = useSession();
-  console.log(isPending);
+  const { data: session } = useSession();
 
   useEffect(() => {
     if (!session?.user) {

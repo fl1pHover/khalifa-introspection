@@ -10,6 +10,7 @@ export default function EditUserForm({ user }: { user }) {
     const email = formData.get("email") as string;
     const phone = formData.get("phone") as string;
     const address = formData.get("address") as string;
+    const taxNumber = formData.get("tax-number") as string;
 
     await prisma.user.update({
       where: { id: user.id },
@@ -18,6 +19,7 @@ export default function EditUserForm({ user }: { user }) {
         email,
         phone,
         address,
+        taxNumber,
       },
     });
     revalidatePath("/profile");
@@ -60,6 +62,17 @@ export default function EditUserForm({ user }: { user }) {
           type="text"
           name="phone"
           defaultValue={user.phone}
+          className="w-full border px-3 py-2 rounded"
+        />
+      </div>
+      <div>
+        <label htmlFor="tax-number" className="block mb-1 font-semibold">
+          Tax Number
+        </label>
+        <input
+          type="text"
+          name="tax-number"
+          defaultValue={user.taxNumber}
           className="w-full border px-3 py-2 rounded"
         />
       </div>
