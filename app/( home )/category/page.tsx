@@ -15,8 +15,6 @@ export default async function Page() {
 
   const products = categories.flatMap((category) => category.Product);
 
-  const sortedProducts = [...products].sort((a, b) => a.id - b.id);
-
   console.log(products);
 
   return (
@@ -31,7 +29,7 @@ export default async function Page() {
         ))}
       </div>
       <br />
-      {sortedProducts.map((c) => (
+      {products.map((c) => (
         <div key={c.id} className="flex gap-10">
           <span>id:{c.id}</span> <span>title: {c.title}</span>
           <span>Category: {c.categoryId}</span>

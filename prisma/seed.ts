@@ -2,6 +2,7 @@ import { Prisma, PrismaClient } from "@/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import "dotenv/config";
 
+
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
 });
@@ -14,7 +15,7 @@ const productData: Prisma.ProductCreateInput[] = [
   {
     title: "Signature Candle",
     // ATTENTION: { connect }
-
+    Category: { connect: { id: 1 } },
     description: "",
     quantity: 2,
     price: 55000,
@@ -23,7 +24,7 @@ const productData: Prisma.ProductCreateInput[] = [
   },
   {
     title: "Glen Talloch Blended Whisky Rare & Old",
-    // Category: { connect: { id: 5 } },
+    Category: { connect: { id: 5 } },
     description: "",
     quantity: 0,
     price: 95000,
@@ -32,7 +33,7 @@ const productData: Prisma.ProductCreateInput[] = [
   },
   {
     title: "Sierra Silver",
-    // Category: { connect: { id: 7 } },
+    Category: { connect: { id: 7 } },
     description: "",
     quantity: 0,
     price: 82000,
@@ -41,7 +42,7 @@ const productData: Prisma.ProductCreateInput[] = [
   },
   {
     title: "Grand Marnier Gordon Rouge",
-    // Category: { connect: { id: 7 } },
+    Category: { connect: { id: 7 } },
     description: "",
     quantity: 2,
     price: 138000,
@@ -50,7 +51,24 @@ const productData: Prisma.ProductCreateInput[] = [
   },
 ];
 
+const categoryData: Prisma.CategoryCreateInput[] = [
+  { title: "gift set" },
+  { title: "gin" },
+  { title: "rum" },
+  { title: "liqueur" },
+  { title: "whiskey" },
+  { title: "champagne" },
+  { title: "tequila" },
+];
+
 export async function main() {
+  for (const c of categoryData) {
+    await prisma.category.createMany({
+      data: categoryData,
+      skipDuplicates: true,
+    });
+  }
+
   for (const p of productData) {
     await prisma.product.create({ data: p });
   }

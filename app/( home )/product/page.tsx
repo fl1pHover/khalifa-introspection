@@ -2,8 +2,6 @@ import { prisma } from "@/lib/prisma";
 import { Suspense } from "react";
 
 export default async function Page() {
-  const category = null;
-
   const products = await prisma.product.findMany({});
 
   console.log(products);
