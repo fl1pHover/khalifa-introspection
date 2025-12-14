@@ -1,4 +1,4 @@
-import EditUserForm from "@/component/user-edit.form";
+import EditUserForm from "./user-edit.form";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { headers } from "next/headers";

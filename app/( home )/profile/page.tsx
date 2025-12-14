@@ -1,4 +1,4 @@
-import UserInformation from "@/component/user-information";
+import UserInformation from "@/components/user-information";
 
 export default function Page() {
   // ATTENTION

@@ -3,8 +3,7 @@
 import useCartStore from "@/store/cartState";
 import React from "react";
 
-export default function Page() {
+export default function ShoppingCartIcon() {
   const { cart } = useCartStore();
-
-  return <div className="">{cart.length}</div>;
+  return <div>Cart - {cart.reduce((acc, item) => acc + item.quantity, 0)}</div>;
 }
